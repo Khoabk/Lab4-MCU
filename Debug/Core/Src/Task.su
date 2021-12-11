@@ -1,0 +1,5 @@
+Task.c:25:6:Led_blinking1	8	static
+Task.c:32:6:Led_blinking2	8	static
+Task.c:38:6:Led_blinking3	8	static
+Task.c:44:6:Led_blinking4	8	static
+Task.c:51:6:Led_blinking5	8	static
