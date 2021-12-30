@@ -98,16 +98,10 @@ void SCH_Init(void)
 
 	for(i=0; i < MAX_SIZE ; i++)
 	{
-
-
 		SCH_Reset_Task(i);
 		Task_Array[i].TaskID=i;
 		Task_Array[i].Prev_ID = i-1;
 		Task_Array[i].Next_ID= i+1;
-
-
-
-
 	}
 
 	Errorcode =0;
@@ -136,10 +130,8 @@ unsigned char SCH_Delete_Task(const int TASK_IDX)
 
 		if(Tail==TASK_IDX)
 		{
-
 			Tail=Task_Array[TASK_IDX].Prev_ID;
 			return Return_code;
-
 		}
 
 		if(Head==TASK_IDX)
@@ -225,8 +217,8 @@ static unsigned char SCH_Reallocation(unsigned int add_pos, char head_mode)
 
 		Task_Array[Traverse].Delay -= Task_Array[add_pos].Delay;
 
-		if(!head_mode){
-
+		if(!head_mode)
+		{
 			Task_Array[Tail].Next_ID = Task_Array[add_pos].Next_ID;
 
 			if(Task_count < MAX_SIZE){ Task_Array[Task_Array[Tail].Next_ID].Prev_ID = Tail;}
@@ -265,11 +257,9 @@ unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int
 
 	if(Task_count==MAX_SIZE)
 	{
-
 		Errorcode= ERROR_SCH_TOO_MANY_TASKS;
 
 		return MAX_TASK;
-
 	}
 
 	add_pos = (Task_count==0)?Tail:Task_Array[Tail].Next_ID;
@@ -305,7 +295,6 @@ void SCH_Update(void)
 		if(in_loop==0)in_loop=1;
 
 		Task_Array[Head].RunMe++;
-
 
 		if(Task_Array[Head].Period)
 		{
@@ -377,8 +366,8 @@ void SCH_Dispatch_Task(void)
 
 		 if(Task_Array[Head].Period==0)SCH_Delete_Task(Head);
 
-		 else{
-
+		 else
+		 {
 			 Task_Array[Head].Delay = Task_Array[Head].Period;
 
 			 SCH_Reallocation(Head, 1);
