@@ -126,9 +126,7 @@ int main(void)
 
 	 SCH_Init();
 
-
 	 int offset=5;
-
 
 	 SCH_Add_Task(Led_blinking1,0,1000/offset);
 	 SCH_Add_Task(Led_blinking2,0,2000/offset);
@@ -136,29 +134,15 @@ int main(void)
 	// SCH_Add_Task(Led_blinking4,20,5);
 	// SCH_Add_Task(Led_blinking5,6,15);
 
-
 	 HAL_TIM_Base_Start_IT(&htim2);
-
-
-	uint8_t pData[]="Hello World !\r";
-
-
-	HAL_UART_Transmit(&huart2, pData, sizeof(pData), 1000);
-
-
-
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-    /* USER CODE END WHILE */
-
-	 // HAL_Delay(210);
-	  SCH_Dispatch_Task();
-	  HAL_IWDG_Refresh(&hiwdg);
-
-    /* USER CODE BEGIN 3 */
+  {	  
+  	SCH_Dispatch_Task();
+	  
+  	HAL_IWDG_Refresh(&hiwdg);
   }
   /* USER CODE END 3 */
 }
