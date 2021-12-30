@@ -260,10 +260,7 @@ static unsigned char SCH_Reallocation(unsigned int add_pos, char head_mode)
 
 unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int PERIOD)
 {
-
-
-
-
+	
 	int add_pos;
 
 	if(Task_count==MAX_SIZE)
@@ -274,7 +271,6 @@ unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int
 		return MAX_TASK;
 
 	}
-
 
 	add_pos = (Task_count==0)?Tail:Task_Array[Tail].Next_ID;
 
@@ -290,11 +286,8 @@ unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int
 
 	if(Task_count==1)return add_pos;
 
-
 	return SCH_Reallocation(add_pos, 0);
-
-
-
+	
 }
 
 
