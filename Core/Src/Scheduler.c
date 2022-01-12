@@ -87,9 +87,6 @@ static unsigned char SCH_Reset_Task(const int TASK_IDX)
 
 void SCH_Init(void)
 {
-
-
-
 	Head=0;
 	Tail=0;
 	Task_count=0;
@@ -110,14 +107,12 @@ void SCH_Init(void)
 	Watchdog_init();
 	//Configure normal sleep mode
 	SCB->SCR &= ~(1<<2);
-
 }
 
 
 
 unsigned char SCH_Delete_Task(const int TASK_IDX)
 {
-
 	unsigned char Return_code;
 
 	Return_code = SCH_Reset_Task(TASK_IDX);
@@ -151,9 +146,7 @@ unsigned char SCH_Delete_Task(const int TASK_IDX)
 		Task_Array[Tail].Next_ID=TASK_IDX;
 	}
 
-
 	return Return_code;
-
 }
 
 
@@ -162,7 +155,6 @@ unsigned char SCH_Delete_Task(const int TASK_IDX)
 
 static void SCH_Tail_Handling(unsigned int addpos)
 {
-
 	Task_Array[addpos].Next_ID = Task_Array[Tail].Next_ID;
 
 	if(Task_count < MAX_SIZE){ Task_Array[Task_Array[Tail].Next_ID].Prev_ID = addpos;}
@@ -172,7 +164,6 @@ static void SCH_Tail_Handling(unsigned int addpos)
 	Task_Array[Tail].Next_ID = addpos;
 
 	Tail = addpos;
-
 }
 
 
@@ -183,7 +174,6 @@ static void SCH_Tail_Handling(unsigned int addpos)
 
 static unsigned char SCH_Reallocation(unsigned int add_pos, char head_mode)
 {
-
 	int Traverse = Head;
 
 
@@ -237,12 +227,7 @@ static unsigned char SCH_Reallocation(unsigned int add_pos, char head_mode)
 		break;
 	}
 
-
-
 	return add_pos;
-
-
-
 }
 
 
@@ -252,7 +237,6 @@ static unsigned char SCH_Reallocation(unsigned int add_pos, char head_mode)
 
 unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int PERIOD)
 {
-	
 	int add_pos;
 
 	if(Task_count==MAX_SIZE)
@@ -277,7 +261,6 @@ unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int
 	if(Task_count==1)return add_pos;
 
 	return SCH_Reallocation(add_pos, 0);
-	
 }
 
 
@@ -285,7 +268,6 @@ unsigned char SCH_Add_Task(void(* pFunction)(), unsigned int DELAY, unsigned int
 
 void SCH_Update(void)
 {
-
 	if(Task_count == 0)return;
 
 	int in_loop=0;
@@ -304,7 +286,6 @@ void SCH_Update(void)
 
 	}
 	if(in_loop==0)Task_Array[Head].Delay --;
-
 }
 
 
@@ -348,7 +329,6 @@ void SCH_Report_Status(void)
 
 	}
 
-
 #endif
 }
 
@@ -357,7 +337,6 @@ void SCH_Report_Status(void)
 
 void SCH_Dispatch_Task(void)
 {
-
 	while(Task_Array[Head].RunMe > 0||Task_Array[Head].Delay==0)
 	{
 		 (*Task_Array[Head].pTask)();
@@ -379,7 +358,6 @@ void SCH_Dispatch_Task(void)
 	SCH_Report_Status();
 
 	SCH_Go_To_Sleep();
-
 }
 
 
